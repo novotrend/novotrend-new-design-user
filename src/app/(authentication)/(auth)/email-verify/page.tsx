@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import EmailVerificationOTP from "@/components/auth/EmailVerificationOTP";
 
 export const metadata: Metadata = {
-  title: "Next.js EmailVerification Page |  - Novotrend CRM",
+  title: "Novotrend CRM - EmailVerification Page",
   description: "Future of global trading Dashboard Template",
 };
 

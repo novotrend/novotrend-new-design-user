@@ -626,9 +626,7 @@ const UserProfile = () => {
                           </span>
                         </label>
                         <textarea
-                          {...registerProfile("bio", {
-                            setValueAs: (val) => (val === "" ? undefined : val),
-                          })}
+                          {...registerProfile("bio")}
                           placeholder="Write something about yourself... (optional)"
                           maxLength={300}
                           className="mt-1 w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-gray-800 outline-none focus:ring-2 focus:ring-indigo-300 dark:border-gray-700 dark:bg-slate-700 dark:text-gray-100"

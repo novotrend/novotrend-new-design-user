@@ -68,8 +68,6 @@ function calcProfileCompletion(data: {
   const filled = fields.filter(Boolean).length;
   const profilePercent = Math.round((filled / fields.length) * 100);
 
-  // console.log("dd-01", data.bio);
-
   return data.kycStatus?.toLowerCase() === "approved" ? 100 : Math.min(profilePercent, 90);
 }
 
@@ -81,6 +79,8 @@ const UserProfile = () => {
   const [CurrentshowPassword, setCurrentShowPassword] = useState(false);
   const [NewshowPassword, setNewShowPassword] = useState(false);
   const [ConfirmshowPassword, setConfirmShowPassword] = useState(false);
+
+  const [userChangedDate, setUserChangedDate] = useState(false);
 
   // KYC file state
   const [fileFront, setFileFront] = useState<File | null>(null);
@@ -174,20 +174,9 @@ const UserProfile = () => {
   const watchedDocType2 = watchKyc("doc_type2");
   const watchedProfile = watchProfile();
 
-  const profileHasChanges = isProfileDirty || profileImage !== null;
+  const profileHasChanges = isProfileDirty || profileImage !== null || userChangedDate;
 
   // Profile Completion
-  // const completionPercent = calcProfileCompletion({
-  //   first_name: watchedProfile.first_name,
-  //   last_name: watchedProfile.last_name,
-  //   phone: watchedProfile.phone,
-  //   dob: watchedProfile.dob,
-  //   bio: watchedProfile.bio,
-  //   country: watchedProfile.country,
-  //   user_img: profilePreview,
-  //   kycStatus: status,
-  // });
-
   const completionPercent = kycLoading
     ? 0
     : calcProfileCompletion({
@@ -201,31 +190,6 @@ const UserProfile = () => {
       });
 
   // Populate profile form from API
-  // useEffect(() => {
-  //   if (profileData) {
-  //     resetProfile({
-  //       first_name: profileData.first_name ?? "",
-  //       last_name: profileData.last_name ?? "",
-  //       phone: profileData.user_mobile ?? "",
-  //       // bio: profileData.user_bio ?? "",
-  //       // bio: profileData.user_bio || undefined,
-  //       bio: profileData.user_bio || "",
-  //       dob: profileData.birthdate ?? "",
-  //       country: profileData.user_country ?? "",
-  //     });
-  //     setProfilePreview(profileData.user_img ?? "");
-
-  //     const [dd, mm, yyyy] = profileData.birthdate.split("-").map(Number);
-  //     setStartDate(new Date(yyyy, mm - 1, dd));
-
-  //     if (profileData.user_country) {
-  //       setSelectedCountry({
-  //         country_code: profileData.user_country,
-  //         country_name: profileData.contryname ?? profileData.user_country,
-  //       } as Country);
-  //     }
-  //   }
-  // }, [profileData, resetProfile]);
 
   useEffect(() => {
     if (profileData) {
@@ -258,18 +222,20 @@ const UserProfile = () => {
         } as Country);
       }
     }
+    setUserChangedDate(false);
   }, [profileData, resetProfile]);
 
-  // Sync startDate → dob field
   useEffect(() => {
     if (startDate) {
       const yyyy = startDate.getFullYear();
       const mm = String(startDate.getMonth() + 1).padStart(2, "0");
       const dd = String(startDate.getDate()).padStart(2, "0");
-      // setProfileValue("dob", `${yyyy}-${mm}-${dd}`, { shouldValidate: true });
-      setProfileValue("dob", `${yyyy}-${mm}-${dd}`, { shouldValidate: true, shouldDirty: true });
+      setProfileValue("dob", `${yyyy}-${mm}-${dd}`, {
+        shouldValidate: true,
+        shouldDirty: userChangedDate,
+      });
     }
-  }, [startDate, setProfileValue]);
+  }, [startDate, setProfileValue, userChangedDate]);
 
   const firstKyc = kycData?.[0];
 
@@ -325,7 +291,7 @@ const UserProfile = () => {
     });
   };
 
-  //FIX 3: KYC Submit —
+  // KYC Submit
   const onKycSubmit = (data: KycFormData) => {
     // const isFirstTime = !kyc; // pehli baar KYC submit
 
@@ -334,8 +300,8 @@ const UserProfile = () => {
     const poaFrontOk = !!fileFront2 || !!kyc?.address_photo;
     const poaBackOk = !!fileBack2 || !!kyc?.address_photo_back;
 
-    // pehli baar: sabhi 4 files mandatory
-    // edit me: jo existing hai wo chalega, but koi bhi slot empty nahi hona chahiye
+    // first time, 4 files mandatory
+    // edit 
     if (!poiFrontOk || !poiBackOk || !poaFrontOk || !poaBackOk) {
       const missing: string[] = [];
       if (!poiFrontOk) missing.push("POI Front");
@@ -605,7 +571,10 @@ const UserProfile = () => {
                           </label>
                           <CustomDatePicker
                             selected={startDate ?? undefined}
-                            onChange={setStartDate}
+                            onChange={(date) => {
+                              setStartDate(date);
+                              setUserChangedDate(true);
+                            }}
                             maxDate={new Date()}
                             placeholder="Select your date of birth"
                           />
@@ -617,7 +586,7 @@ const UserProfile = () => {
                         </div>
                       </div>
 
-                      {/* Bio — FIX 1: Optional field, no asterisk */}
+                      {/* Bio — Optional field, no asterisk */}
                       <div>
                         <label className="text-md text-gray-500">
                           Bio{" "}
@@ -670,7 +639,7 @@ const UserProfile = () => {
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                       KYC Documents Verification
                     </h3>
-                    {/* FIX 3: Updated hint to reflect 10MB limit */}
+                    {/* Updated hint to reflect 10MB limit */}
                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                       Please upload your KYC documents. Supported formats: PDF, JPG, JPEG, PNG. Max
                       10MB per file.
@@ -722,9 +691,9 @@ const UserProfile = () => {
                           title="POI Front"
                           preview={kyc?.identity_front_photo}
                           onChange={(file) => setFileFront(file)}
-                          // FIX 3: pass maxSizeMB so DocumentUpload can enforce 10MB
+                          // pass maxSizeMB so DocumentUpload can enforce 10MB
                           maxSizeMB={10}
-                          // FIX 2: PDF allowed
+                          // PDF allowed
                           acceptPdf
                         />
                         <DocumentUpload

@@ -11,6 +11,8 @@ const PUBLIC_ROUTES = [
 const authRoutes = ["/sign-in", "/sign-up", "/forgot-password"];
 const tokenBasedRoutes = ["/reset-password"];
 
+const isAuthRoute = (pathname: string) => authRoutes.some((route) => pathname.startsWith(route));
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -19,7 +21,7 @@ export function middleware(request: NextRequest) {
   // Not logged in
   if (!token) {
     if (
-      authRoutes.includes(pathname) ||
+      isAuthRoute(pathname) ||
       tokenBasedRoutes.includes(pathname) ||
       pathname.startsWith("/email-verify")
     ) {
@@ -29,7 +31,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Logged in
-  if (authRoutes.includes(pathname)) {
+  if (isAuthRoute(pathname)) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 

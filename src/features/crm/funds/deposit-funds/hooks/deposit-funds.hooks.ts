@@ -69,6 +69,44 @@ export const useDepositFundsAddWalletBalance = () => {
   return { ...mutation, message };
 };
 
+// export const useDepositFundsAddWalletBalance = () => {
+//   const queryClient = useQueryClient(); // add karo
+//   const [message, setMessage] = useState<{
+//     type: "success" | "error";
+//     text: string;
+//   } | null>(null);
+
+//   const mutation = useMutation({
+//     mutationFn: (payload: DepositFundsPayload) => depositFundsAddWalletBalance(payload),
+//     onSuccess: (response) => {
+//       const responseData = response?.data;
+//       if (responseData?.status === 200) {
+//         setMessage({
+//           type: "success",
+//           text: responseData?.result || "Deposit successful.",
+//         });
+//         // invalidate karo dono queries
+//         queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
+//         queryClient.invalidateQueries({ queryKey: ["userBalance", "userData"] });
+//       } else {
+//         setMessage({
+//           type: "error",
+//           text: responseData?.result || "Something went wrong.",
+//         });
+//       }
+//     },
+//     onError: (error: unknown) => {
+//       const err = error as AxiosError<{ message?: string }>;
+//       setMessage({
+//         type: "error",
+//         text: err.response?.data?.message || err.message || "Deposit failed.",
+//       });
+//     },
+//   });
+
+//   return { ...mutation, message };
+// };
+
 // Cash Deposit API hook
 export function useCashDeposit() {
   const [message, setMessage] = useState<{

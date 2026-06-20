@@ -5,6 +5,8 @@ export function useDashboardStats() {
   const query = useQuery({
     queryKey: ["dashboard", "stats"],
     queryFn: getDashboardStats,
+    staleTime: 30000,
+    refetchOnWindowFocus: true,
   });
 
   return {

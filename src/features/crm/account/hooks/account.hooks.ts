@@ -35,8 +35,8 @@ export function useOpenAccount() {
       });
 
       if (isSuccess) {
-        queryClient.invalidateQueries({ queryKey: ["accList"] });
-        queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] }); // fix 
+        queryClient.invalidateQueries({ queryKey: ["mt5Accounts"] });
+        queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
       }
     },
     onError: () => {

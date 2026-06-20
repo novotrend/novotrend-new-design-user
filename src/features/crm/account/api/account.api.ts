@@ -26,6 +26,7 @@ export async function openAccount(payload: OpenAccountPayload): Promise<OpenAcco
 // MT5 account password changes:
 
 export async function changePassword(
+  
   payload: ChangePasswordPayload
 ): Promise<ChangePasswordResponse> {
   const response = await api.post(API_ENDPOINTS.CRM.CHANGE_MT5_PASSWORD, payload);

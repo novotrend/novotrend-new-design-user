@@ -70,6 +70,10 @@ const BecomePartnerModal: React.FC<BecomePartnerModalProps> = ({ onClose }) => {
           By clicking continue, you agree to all policies and terms.
         </p>
 
+        {/* message show here  */}
+        <FormMessage message={message} />
+        <br />
+
         {/* Buttons */}
         <div className="flex justify-end gap-3">
           <button
@@ -89,9 +93,6 @@ const BecomePartnerModal: React.FC<BecomePartnerModalProps> = ({ onClose }) => {
             {isPending ? "Processing..." : "Become Partner"}
           </button>
         </div>
-        {/* message show here  */}
-        <br />
-        <FormMessage message={message} />
       </div>
     </div>
   );

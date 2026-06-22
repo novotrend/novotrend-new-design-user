@@ -60,10 +60,6 @@ export function middleware(request: NextRequest) {
     return withNoCache(NextResponse.redirect(new URL("/sign-in", request.url)));
   }
 
-  // Logged in + public route, dashboard
-  // if (isPublicRoute && token) {
-  //   return withNoCache(NextResponse.redirect(new URL("/", request.url)));
-  // }
 
   if (isPublicRoute && token && !pathname.startsWith("/email-verify")) {
     return NextResponse.redirect(new URL("/", request.url));

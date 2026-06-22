@@ -10,12 +10,16 @@ import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import { EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CountryDropdown from "./countrydropdown/CountryDropdown";
 import { Country } from "@/features/auth/register/types/register.types";
 import FormMessage from "@/common/UI/FormMessage";
 
-export default function SignUpForm() {
+interface SignUpFormProps {
+  partnerCode?: string;
+}
+
+export default function SignUpForm({ partnerCode }: SignUpFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
@@ -41,6 +45,12 @@ export default function SignUpForm() {
       partnercode: data.partnercode ?? "",
     });
   };
+
+  useEffect(() => {
+    if (partnerCode) {
+      setValue("partnercode", partnerCode);
+    }
+  }, [partnerCode, setValue]);
 
   const handleCountryChange = (country: Country) => {
     setSelectedCountry(country);
@@ -183,6 +193,8 @@ export default function SignUpForm() {
                   type="text"
                   inputMode="numeric"
                   placeholder="Enter partner code"
+                  readOnly={!!partnerCode}
+                  className={!!partnerCode ? "cursor-not-allowed bg-gray-100" : ""}
                   {...formRegister("partnercode", {
                     onChange: (e) => {
                       e.target.value = e.target.value.replace(/\D/g, "");

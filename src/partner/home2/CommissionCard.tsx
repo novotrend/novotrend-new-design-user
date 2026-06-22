@@ -68,7 +68,7 @@ export default function CommissionCard({ amount }: CommissionCardProps) {
 
       {/* Modal */}
       {openModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 dark:border-gray-800 dark:bg-white/[0.03]">
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4 dark:border-gray-800 dark:bg-white/[0.03]">
           <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
             {/* Close Button */}
             <button

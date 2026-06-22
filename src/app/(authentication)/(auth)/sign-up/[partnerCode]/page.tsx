@@ -1,5 +1,10 @@
 import SignUpForm from "@/components/auth/SignUpForm";
 
-export default function PartnerSignUpPage({ params }: { params: { partnerCode: string } }) {
-  return <SignUpForm partnerCode={params.partnerCode} />;
+export default async function PartnerSignUpPage({
+  params,
+}: {
+  params: Promise<{ partnerCode: string }>;
+}) {
+  const { partnerCode } = await params;
+  return <SignUpForm partnerCode={partnerCode} />;
 }

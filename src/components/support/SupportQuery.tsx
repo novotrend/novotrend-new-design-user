@@ -138,7 +138,7 @@ export default function SupportQuery() {
   const { data: categories = [], isLoading: categoriesLoading } = useSupportCategories();
   const createTicket = useCreateTicket();
 
-  // ── Form state ────────────────────────────────────────────────────────────
+  //  Form state 
   const [category, setCategory] = useState("");
   const [question, setQuestion] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -148,7 +148,7 @@ export default function SupportQuery() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ── Reset form on success ─────────────────────────────────────────────────
+  //  Reset form on success 
   useEffect(() => {
     if (createTicket.isSuccess && createTicket.data?.status === 200) {
       setCategory("");
@@ -160,7 +160,7 @@ export default function SupportQuery() {
     }
   }, [createTicket.isSuccess, createTicket.data]);
 
-  // ── File handler ──────────────────────────────────────────────────────────
+  //  File handler 
   const handleFile = (f: File | null) => {
     if (!f) return;
     if (f.size > 5 * 1024 * 1024) return; // 5MB guard
@@ -174,7 +174,7 @@ export default function SupportQuery() {
     }
   };
 
-  // ── Submit ────────────────────────────────────────────────────────────────
+  //  Submit 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFieldErrors({});

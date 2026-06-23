@@ -127,6 +127,7 @@ api.interceptors.response.use(
     // Handle Unauthorized (401)
     if (error.response?.status === 401) {
       console.warn("Session expired. Logging out...");
+      console.log("Session expired. Logging out...");
 
       // Remove auth cookie
       document.cookie =

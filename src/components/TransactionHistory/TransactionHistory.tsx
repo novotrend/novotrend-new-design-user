@@ -351,24 +351,20 @@ export default function TransactionHistory() {
                 </td>
               </tr>
             ) : activeTab === "All" ? (
-              // <AllRows rows={currentRows} />
               <AllRows rows={currentRows} currentPage={currentPage} rowsPerPage={rowsPerPage} />
             ) : activeTab === "Deposit" ? (
-              // <DepositTable rows={currentRows} />
               <DepositTable
                 rows={currentRows}
                 currentPage={currentPage}
                 rowsPerPage={rowsPerPage}
               />
             ) : activeTab === "Withdraw" ? (
-              // <WithdrawTable rows={currentRows} />
               <WithdrawTable
                 rows={currentRows}
                 currentPage={currentPage}
                 rowsPerPage={rowsPerPage}
               />
             ) : (
-              // <TransferTable rows={currentRows} />
               <TransferTable
                 rows={currentRows}
                 currentPage={currentPage}

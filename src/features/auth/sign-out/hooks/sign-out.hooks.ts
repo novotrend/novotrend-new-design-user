@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { logoutUser } from "../api/sign-out.api";
 
 const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 min
 
 export function useLogout() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef(0);
 
@@ -21,6 +23,7 @@ export function useLogout() {
       document.cookie = "auth_token=; path=/; max-age=0; SameSite=Strict; Secure";
       document.cookie = "userToken=; path=/; max-age=0; SameSite=Strict; Secure";
 
+      queryClient.clear();
       localStorage.clear();
       sessionStorage.clear();
       localStorage.setItem("logout-event", Date.now().toString());
@@ -28,7 +31,7 @@ export function useLogout() {
       document.body.style.opacity = "1";
       router.replace("/sign-in");
     }
-  }, [router]);
+  }, [router, queryClient]);
 
   // Inactivity timer reset
   const resetTimer = useCallback(() => {
@@ -71,12 +74,13 @@ export function useLogout() {
   useEffect(() => {
     const syncLogout = (e: StorageEvent) => {
       if (e.key === "logout-event") {
+        queryClient.clear();
         router.replace("/sign-in");
       }
     };
     window.addEventListener("storage", syncLogout);
     return () => window.removeEventListener("storage", syncLogout);
-  }, [router]);
+  }, [router, queryClient]);
 
   return { handleLogout };
 }

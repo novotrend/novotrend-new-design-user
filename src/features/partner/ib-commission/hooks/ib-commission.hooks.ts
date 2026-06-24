@@ -1,5 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchIBCommission, withdrawIBCommission } from "../api/ib-commission.api";
+import {
+  fetchIBCommission,
+  fetchIBCommissionHistory,
+  withdrawIBCommission,
+} from "../api/ib-commission.api";
 import { WithdrawCommissionPayload } from "../types/ib-commission.types";
 
 const IB_KEY = ["ib-commission"] as const;
@@ -25,5 +29,15 @@ export function useWithdrawCommission() {
         queryClient.invalidateQueries({ queryKey: IB_KEY });
       }
     },
+  });
+}
+
+// get-history
+
+export function useIBCommissionHistory() {
+  return useQuery({
+    queryKey: ["ibCommissionHistory"],
+    queryFn: fetchIBCommissionHistory,
+    staleTime: 2 * 60 * 1000,
   });
 }

@@ -9,6 +9,7 @@ import images1 from "../../../public/images/grid-image/commission-icon.jpg";
 import images2 from "../../../public/images/grid-image/commission.jpg";
 import {
   useIBCommission,
+  useIBCommissionHistory,
   useWithdrawCommission,
 } from "@/features/partner/ib-commission/hooks/ib-commission.hooks";
 
@@ -46,8 +47,8 @@ export default function WithdrawCommission() {
   const { data, isLoading: dataLoading } = useIBCommission();
   const withdraw = useWithdrawCommission();
 
+  const { data: tableData = [], isLoading: dataLoadingHistory } = useIBCommissionHistory();
   const totalCommission = data?.total_ib_commission ?? 0;
-  const tableData = data?.details ?? [];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -241,7 +242,7 @@ export default function WithdrawCommission() {
                   </tr>
                 </thead>
                 <tbody>
-                  {dataLoading ? (
+                  {dataLoadingHistory ? (
                     <tr>
                       <td colSpan={4} className="py-10 text-center">
                         <Loader2 className="mx-auto h-6 w-6 animate-spin text-indigo-500" />
@@ -269,7 +270,7 @@ export default function WithdrawCommission() {
                           $ {row?.amount}
                         </td>
                         <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
-                          {row?.remark}
+                          {row?.remark || "-"}
                         </td>
                         <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
                           <StatusBadge status={row?.status} />

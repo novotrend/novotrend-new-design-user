@@ -261,9 +261,9 @@ export default function ClientAccount() {
                   <td className="border-r px-5 py-3 whitespace-nowrap dark:border-slate-700">
                     {row.sign_up_date || "-"}
                   </td>
-                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.lotsize ?? "-"}</td>
+                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.lotsize || "-"}</td>
                   <td className="border-r px-5 py-3 dark:border-slate-700">
-                    {row.commision ?? "-"}
+                    {row.commision || "-"}
                   </td>
                   <td className="px-5 py-3">{row.level || "-"}</td>
                 </tr>

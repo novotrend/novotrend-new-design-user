@@ -57,7 +57,7 @@ const partnerMenu: NavItem[] = [
     subItems: [
       { name: "Clients", path: "/partners/clients" },
       { name: "Client Accounts", path: "/partners/clientaccount" },
-      { name: "Client Transaction", path: "/partners/clienttransaction" },
+      // { name: "Client Transaction", path: "/partners/clienttransaction" },
       { name: "Reward history", path: "/partners/rewards" },
     ],
   },

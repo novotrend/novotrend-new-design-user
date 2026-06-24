@@ -8,7 +8,9 @@ export interface CommissionHistoryItem {
 }
 
 export interface IBCommissionResponse {
-  total_commission: number;
+  // total_commission: number;
+  total_ib_commission: number;
+
   details: CommissionHistoryItem[];
 }
 

@@ -9,10 +9,10 @@ export default function ClientHistoryTabs() {
   return (
     <div className="w-full space-y-6">
       {/* Title */}
-      <div className="py-6">
+      {/* <div className="py-6">
         <h1 className="text-2xl font-semibold dark:text-white">Rebates History</h1>
         <p className="text-sm text-gray-500">The report is updated once in 2 hours...</p>
-      </div>
+      </div> */}
       {/* Tabs */}
       <div className="flex gap-6 border-b">
         {["client", "history"].map((tab) => (

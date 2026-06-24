@@ -62,12 +62,12 @@ export default function RewardHistory() {
 
   return (
     <div className="w-full space-y-8 text-black dark:text-white">
-      <div>
+      {/* <div>
         <h1 className="text-2xl font-semibold">Reward History</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           The report is updated once in 2 hours...
         </p>
-      </div>
+      </div> */}
 
       {/* Stats */}
       <div className="grid gap-5 md:grid-cols-2">

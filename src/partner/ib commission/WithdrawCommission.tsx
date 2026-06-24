@@ -46,7 +46,7 @@ export default function WithdrawCommission() {
   const { data, isLoading: dataLoading } = useIBCommission();
   const withdraw = useWithdrawCommission();
 
-  const totalCommission = data?.total_commission ?? 0;
+  const totalCommission = data?.total_ib_commission ?? 0;
   const tableData = data?.details ?? [];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -260,16 +260,16 @@ export default function WithdrawCommission() {
                         className="text-center transition hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-white/5"
                       >
                         <td className="border border-gray-300 px-5 py-3 whitespace-nowrap dark:border-white/10 dark:bg-slate-800">
-                          {formatDate(row.date)}
+                          {formatDate(row?.date)}
                         </td>
                         <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
-                          $ {row.amount}
+                          $ {row?.amount}
                         </td>
                         <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
-                          {row.remark}
+                          {row?.remark}
                         </td>
                         <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
-                          <StatusBadge status={row.status} />
+                          <StatusBadge status={row?.status} />
                         </td>
                       </tr>
                     ))

@@ -71,7 +71,7 @@ export const API_ENDPOINTS = {
     WITHDRAWS_IB_FUNDS_ADD_WALLET: "withdraw/withdraws_ib_funds_add_wallet.php",
     GET_REPORT_CLIENT_TRANSACTION: "partner_dashboard/get_report_client_transaction.php",
     GET_IB_ALL_COMMISSION: "partner_dashboard/get_ib_all_comm_history.php",
-    GET_REBATES_HISTORY: "partner_dashboard/get_rebates_history.php",
+    GET_REBATES_HISTORY: "partner_dashboard/get_rebates_history.php", // this 
     GET_USER_PARTNER_NOTIFICATION: "partner_dashboard/get_user_partner_notification.php",
     GET_CLIENT_ACCOUNTS: "partner_dashboard/get_client_accounts.php",
   },

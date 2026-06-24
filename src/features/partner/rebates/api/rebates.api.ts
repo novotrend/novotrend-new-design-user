@@ -16,7 +16,7 @@ export async function fetchRebateClients(filters: RebateFilters): Promise<Rebate
 
 export async function fetchRebateHistory(filters: RebateFilters): Promise<RebateHistoryResponse> {
   const res = await api.post<{ data: { response: RebateHistoryResponse } }>(
-    API_ENDPOINTS.PARTNER_DASHBOARD.GET_REPORT_REWARD_HISTORY,
+    API_ENDPOINTS.PARTNER_DASHBOARD.GET_REBATES_HISTORY,
     { search: filters.search, mt5acc: filters.mt5acc }
   );
   return res.data.data.response;

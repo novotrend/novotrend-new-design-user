@@ -184,19 +184,19 @@ export default function Clients() {
                 >
                   <td className="border-r px-5 py-3 dark:border-slate-700">{i + 1}</td>
                   <td className="border-r px-5 py-3 whitespace-nowrap dark:border-slate-700">
-                    {row.user_name}
+                    {row.user_name || "-"}
                   </td>
                   <td className="border-r px-5 py-3 whitespace-nowrap dark:border-slate-700">
-                    {row.email}
+                    {row.email || "-"}
                   </td>
                   <td className="border-r px-5 py-3 dark:border-slate-700">
                     <span
                       className={`rounded-full px-3 py-1 text-xs font-medium ${row.status === "Active" ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200" : "bg-gray-200 text-gray-600 dark:bg-slate-600 dark:text-gray-200"}`}
                     >
-                      {row.status}
+                      {row.status || "-"}
                     </span>
                   </td>
-                  <td className="px-5 py-3">{row.rebates} USD</td>
+                  <td className="px-5 py-3">{row.rebates || "0"} USD</td>
                 </tr>
               ))
             )}

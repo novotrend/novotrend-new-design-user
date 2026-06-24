@@ -77,8 +77,8 @@ export default function HistoryTable() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
   const currentRows = filtered.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
-  const totalLots = filtered.reduce((s, d) => s + (d.tot_lot ?? 0), 0);
-  const totalCommission = filtered.reduce((s, d) => s + (d.commision ?? 0), 0);
+  const totalLots = parseFloat(String(data?.total_lots ?? 0));
+  const totalCommission = parseFloat(String(data?.total_commision ?? 0));
 
   useEffect(() => {
     setCurrentPage(1);
@@ -296,14 +296,14 @@ export default function HistoryTable() {
                   key={i}
                   className="text-center transition hover:bg-gray-50 dark:hover:bg-slate-700"
                 >
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.user_name}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.email}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.user_name || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.email || "-"}</td>
                   <td className="border px-4 py-2 whitespace-nowrap dark:border-slate-700">
-                    {d.processed_date}
+                    {d.processed_date || "-"}
                   </td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.mt5_id}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.tot_lot ?? 0}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.commision ?? 0}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.mt5_id || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.tot_lot || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.commision || "-"}</td>
                 </tr>
               ))
             )}

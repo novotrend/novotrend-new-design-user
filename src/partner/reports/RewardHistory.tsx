@@ -196,17 +196,17 @@ export default function RewardHistory() {
             ) : (
               currentRows.map((row, i) => (
                 <tr key={i} className="text-center hover:bg-gray-50 dark:hover:bg-slate-700">
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.user_name}</td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.email}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.user_name || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.email || "-"}</td>
                   <td className="border px-4 py-2 whitespace-nowrap dark:border-gray-700">
-                    {row.payment_date}
+                    {row.payment_date || "-"}
                   </td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.order_in_mt}</td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.partner_code}</td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.country_name}</td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.account_type}</td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.mt5_id}</td>
-                  <td className="border px-4 py-2 dark:border-gray-700">{row.tot_lot ?? 0}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.order_in_mt || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.partner_code || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.country_name || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.account_type || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.mt5_id || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-gray-700">{row.tot_lot || "-"}</td>
                 </tr>
               ))
             )}

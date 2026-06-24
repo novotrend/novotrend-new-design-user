@@ -1,4 +1,4 @@
-// Rebate Client 
+// Rebate Client
 export interface RebateClient {
   user_name: string;
   email: string;
@@ -9,12 +9,14 @@ export interface RebateClient {
 }
 
 export interface RebateClientSummary {
-  clients_count: number;
-  total_lots: number;
-  total_commision: number;
+  total_lots: number | string;
+  total_commision: number | string;
 }
-
+// total_lots
 export interface RebateClientsResponse {
+  clients_count: number;
+  total_commision: number | string;
+  total_lots: number | string;
   details: RebateClient[];
   summary?: RebateClientSummary;
 }
@@ -30,10 +32,12 @@ export interface RebateHistoryItem {
 }
 
 export interface RebateHistoryResponse {
+  total_lots: number | string;
+  total_commision: number | string;
   details: RebateHistoryItem[];
 }
 
-// Filters 
+// Filters
 export interface RebateFilters {
   search: string;
   mt5acc: string;

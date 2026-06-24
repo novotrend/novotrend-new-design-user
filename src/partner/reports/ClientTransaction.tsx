@@ -193,13 +193,13 @@ export default function ClientTransaction() {
             ) : (
               currentRows.map((row, i) => (
                 <tr key={i} className="text-center hover:bg-gray-50 dark:hover:bg-slate-700">
-                  <td className="border px-4 py-2 dark:border-slate-700">{row.user_name}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{row.user_name || "-"}</td>
                   <td className="border px-4 py-2 whitespace-nowrap dark:border-slate-700">
-                    {row.date}
+                    {row.date || "-"}
                   </td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{row.mt5_id}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{row.tot_lot ?? 0}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{row.commision ?? 0}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{row.mt5_id || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{row.tot_lot || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{row.commision || "-"}</td>
                 </tr>
               ))
             )}

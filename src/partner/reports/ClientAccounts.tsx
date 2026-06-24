@@ -44,8 +44,6 @@ export default function ClientAccount() {
     searchby_level: debouncedLevel,
   });
 
-  
-
   const details = data?.details ?? [];
 
   // Sort
@@ -257,17 +255,17 @@ export default function ClientAccount() {
                   key={`${row.user_id}-${row.mt5_id}-${i}`}
                   className="border-t text-center text-sm hover:bg-gray-50 dark:border-slate-700 dark:hover:bg-slate-700"
                 >
-                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.user_name}</td>
-                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.email}</td>
-                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.mt5_id}</td>
+                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.user_name || "-"}</td>
+                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.email || "-"}</td>
+                  <td className="border-r px-5 py-3 dark:border-slate-700">{row.mt5_id || "-"}</td>
                   <td className="border-r px-5 py-3 whitespace-nowrap dark:border-slate-700">
-                    {row.sign_up_date}
+                    {row.sign_up_date || "-"}
                   </td>
                   <td className="border-r px-5 py-3 dark:border-slate-700">{row.lotsize ?? "-"}</td>
                   <td className="border-r px-5 py-3 dark:border-slate-700">
                     {row.commision ?? "-"}
                   </td>
-                  <td className="px-5 py-3">{row.level}</td>
+                  <td className="px-5 py-3">{row.level || "-"}</td>
                 </tr>
               ))
             )}

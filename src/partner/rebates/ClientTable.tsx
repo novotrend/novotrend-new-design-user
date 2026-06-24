@@ -24,20 +24,20 @@ export default function ClientTable() {
 
   const exportRef = useRef<HTMLDivElement>(null);
 
-  // Debounce — 500ms, 
+  // Debounce — 500ms,
   const debouncedSearch = useDebounce(searchQuery, 500);
   const debouncedMt5 = useDebounce(mt5Query, 500);
 
-  // React Query 
+  // React Query
   const { data, isLoading, isFetching } = useRebateClients({
     search: debouncedSearch,
     mt5acc: debouncedMt5,
   });
 
   const details = data?.details ?? [];
-  const summary = data?.summary;
+  const summary = data?.clients_count;
 
-  // Pagination 
+  // Pagination
   const totalPages = Math.max(1, Math.ceil(details.length / rowsPerPage));
   const currentRows = details.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
@@ -64,13 +64,13 @@ export default function ClientTable() {
         {[
           {
             label: "Clients",
-            value: summary?.clients_count ?? details.length,
+            value: summary ?? details.length,
             icon: <Users size={26} />,
           },
-          { label: "Volume (Lots)", value: summary?.total_lots ?? 0, icon: <Percent size={26} /> },
+          { label: "Volume (Lots)", value: data?.total_lots ?? 0, icon: <Percent size={26} /> },
           {
             label: "Commission",
-            value: summary?.total_commision ?? "0.00",
+            value: data?.total_commision ?? "0.00",
             icon: <BadgeDollarSign size={26} />,
           },
         ].map((item, i) => (
@@ -190,12 +190,12 @@ export default function ClientTable() {
                   key={i}
                   className="text-center transition hover:bg-gray-50 dark:hover:bg-slate-700"
                 >
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.user_name}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.email}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.mt5_id}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.rebate_per}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.tot_lot ?? 0}</td>
-                  <td className="border px-4 py-2 dark:border-slate-700">{d.commision ?? 0}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.user_name || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.email || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.mt5_id || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.rebate_per || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.tot_lot || "-"}</td>
+                  <td className="border px-4 py-2 dark:border-slate-700">{d.commision || "-"}</td>
                 </tr>
               ))
             )}

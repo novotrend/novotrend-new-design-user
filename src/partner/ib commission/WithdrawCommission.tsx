@@ -170,9 +170,12 @@ export default function WithdrawCommission() {
                     step="0.01"
                     value={amount}
                     onChange={(e) => {
-                      setAmount(e.target.value);
-                      setErrorMsg("");
-                      setSuccessMsg("");
+                      const val = e.target.value;
+                      if (val === "" || /^\d+(\.\d{0,2})?$/.test(val)) {
+                        setAmount(val);
+                        setErrorMsg("");
+                        setSuccessMsg("");
+                      }
                     }}
                     onWheel={(e) => (e.target as HTMLInputElement).blur()}
                     onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}

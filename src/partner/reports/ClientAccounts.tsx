@@ -44,6 +44,8 @@ export default function ClientAccount() {
     searchby_level: debouncedLevel,
   });
 
+  
+
   const details = data?.details ?? [];
 
   // Sort

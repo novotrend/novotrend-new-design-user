@@ -21,7 +21,6 @@ export async function withdrawIBCommission(
     API_ENDPOINTS.PARTNER_DASHBOARD.WITHDRAWS_IB_FUNDS_ADD_WALLET,
     payload
   );
-  console.log("res-w", res);
   return res.data.data;
 }
 

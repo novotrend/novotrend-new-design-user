@@ -22,7 +22,10 @@ export interface TradingDeal {
 
 export interface TradingHistoryApiResponse {
   status: number;
-  response: RawDealNode[];
+   response: {
+    total_record: number;
+    record: RawDealNode[];
+  };
 }
 
 export interface RawDealNode {

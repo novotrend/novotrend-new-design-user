@@ -54,8 +54,8 @@ export async function fetchTradingHistory(filters: TradingHistoryFilters): Promi
   );
 
   const data = res.data.data;
-  if (data?.status === 200 && Array.isArray(data.response)) {
-    return data.response.map(mapDealNode);
+  if (data?.status === 200 && Array.isArray(data.response?.record)) {
+    return data.response.record.map(mapDealNode);
   }
   return [];
 }

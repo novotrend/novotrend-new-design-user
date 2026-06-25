@@ -153,17 +153,8 @@ const AppSidebar: React.FC<AppSidebarProps> = ({
         },
       ],
     },
-    // ...(Number(isIB) === 0
-    //   ? [
-    //       {
-    //         icon: <FaUserGroup size={20} />,
-    //         name: "Become A Partner",
-    //         action: "OPEN_PARTNER_MODAL",
-    //       } as NavItem,
-    //     ]
-    //   : []),
     ...(isIBLoading
-      ? [] // loading me kuch nahi dikhao
+      ? []
       : Number(isIB) === 0
         ? [
             {

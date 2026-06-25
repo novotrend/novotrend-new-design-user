@@ -25,8 +25,6 @@ export async function fetchTransactionHistory(
     mt5account,
   });
 
-  // console.log("res-backend", res);
-
   const raw = res.data.data.response;
   if (!raw?.length) return [];
 

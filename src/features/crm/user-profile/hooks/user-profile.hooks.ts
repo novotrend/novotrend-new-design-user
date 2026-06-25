@@ -36,8 +36,6 @@ export function useSubmitEkyc() {
     text: string;
   } | null>(null);
 
-  // console.log("message==>", message)
-
   const mutation = useMutation({
     mutationFn: (payload: EkycPayload) => submitEkyc(payload),
     onSuccess: (data) => {

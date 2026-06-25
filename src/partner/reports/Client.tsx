@@ -18,8 +18,6 @@ export default function Clients() {
   const debouncedSearch = useDebounce(search, 500);
   const { data, isLoading, isFetching } = useReportClients();
 
-  // console.log("data-client", data);
-
   // Client-side filter (search + status) — API takes no filters for this endpoint
   const filtered = useMemo(() => {
     let list = data?.details ?? [];

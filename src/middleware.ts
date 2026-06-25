@@ -18,6 +18,17 @@ export function middleware(request: NextRequest) {
 
   const token = request.cookies.get("auth_token")?.value || request.cookies.get("userToken")?.value;
 
+  if (pathname.startsWith("/partners/partner")) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+    const isIB = request.cookies.get("user_is_ib")?.value;
+    if (isIB !== "1") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+    return NextResponse.next();
+  }
+
   // Not logged in
   if (!token) {
     if (
@@ -59,7 +70,6 @@ export function middleware(request: NextRequest) {
   if (!isPublicRoute && !token) {
     return withNoCache(NextResponse.redirect(new URL("/sign-in", request.url)));
   }
-
 
   if (isPublicRoute && token && !pathname.startsWith("/email-verify")) {
     return NextResponse.redirect(new URL("/", request.url));

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDashboardStats, getUserBalanceData, getUserData } from "../api/dashboard.api";
+import { useEffect } from "react";
 
 export function useDashboardStats() {
   const query = useQuery({
@@ -31,11 +32,32 @@ export function useUserData() {
   };
 }
 
+// export function useUserBalanceData() {
+//   const query = useQuery({
+//     queryKey: ["userBalance", "userData"],
+//     queryFn: getUserBalanceData,
+//   });
+
+//   return {
+//     ...query,
+//     user: query.data?.data?.response,
+//     status: query.data?.data?.status,
+//   };
+// }
+
 export function useUserBalanceData() {
   const query = useQuery({
     queryKey: ["userBalance", "userData"],
     queryFn: getUserBalanceData,
   });
+
+  const isIB = query.data?.data?.response?.user_activated_for_ib;
+
+  useEffect(() => {
+    if (isIB !== undefined) {
+      document.cookie = `user_is_ib=${isIB}; path=/; SameSite=Lax`;
+    }
+  }, [isIB]);
 
   return {
     ...query,

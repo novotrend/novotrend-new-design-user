@@ -9,7 +9,7 @@ export interface Mt5Account {
   leverage: string;
   mainPasswordStatus?: string | number;
   server?: string; // frontend side
-  main_password_status:string | number
+  main_password_status: string | number;
 }
 
 export interface DashboardUser {
@@ -76,10 +76,16 @@ export type UserBalanceDataResponse = ApiResponse<UserBalanceData>;
 
 // graph
 export type DurationType = "monthly" | "quarterly" | "annually";
+
 export interface AffiliateProgressItem {
-  symbol: string;
-  lotsize: string;
-  profit: string;
+  level: string;
+  user_comm: string | number;
+}
+
+// ✅ affiliate_progress_new object hai — data array + total_comm_sum
+export interface AffiliateProgressNew {
+  data: AffiliateProgressItem[];
+  total_comm_sum: string | number;
 }
 
 export interface StatisticsItem {
@@ -101,11 +107,12 @@ export interface MonthlySalesResponse {
 }
 
 export interface AffiliateProgressResponse {
+  affiliate_progress_new: AffiliateProgressNew;
   affiliate_progress: AffiliateProgressItem[];
+  total_comm_sum: number | string;
   statistics: StatisticsItem[];
   monthly_sales: MonthlySalesResponse;
 }
-
 export interface AffiliateProgressPayload {
   duration?: DurationType;
   symbol?: string;

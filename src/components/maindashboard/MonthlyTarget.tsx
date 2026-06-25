@@ -9,8 +9,7 @@ import { useAffiliateProgress } from "@/features/partner/reports/hooks/reports.h
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-// Fixed color palette for symbols
-const SYMBOL_COLORS = [
+const LEVEL_COLORS = [
   "#465FFF",
   "#00C49F",
   "#F59E0B",
@@ -21,17 +20,25 @@ const SYMBOL_COLORS = [
   "#F97316",
 ];
 
-// const FILTERS: DurationType[] = ["monthly", "quarterly", "annually"];
-
 export default function AffiliateProgress() {
   const [duration] = useState<DurationType>("monthly");
   const { data, isLoading } = useAffiliateProgress({ duration });
-  const progress = data?.affiliate_progress ?? [];
 
-  // Build pie chart data from affiliate_progress
-  const series = progress.map((p) => Math.abs(parseFloat(p.lotsize)));
-  const labels = progress.map((p) => p.symbol);
-  const colors = progress.map((_, i) => SYMBOL_COLORS[i % SYMBOL_COLORS.length]);
+  const progressNew = data?.affiliate_progress_new?.data ?? [];
+  const totalCommSum = parseFloat(String(data?.affiliate_progress_new?.total_comm_sum ?? "0"));
+
+  // console.log("affiliate_progress_new:", data?.affiliate_progress_new);
+  // console.log("type:", typeof data?.affiliate_progress_new);
+
+  // Series — percentage of each level from total_comm_sum
+  const series = progressNew.map((p) =>
+    totalCommSum > 0
+      ? parseFloat(((parseFloat(String(p.user_comm)) / totalCommSum) * 100).toFixed(2))
+      : 0
+  );
+
+  const labels = progressNew.map((p) => `Level ${p.level}`);
+  const colors = progressNew.map((_, i) => LEVEL_COLORS[i % LEVEL_COLORS.length]);
 
   const options: ApexOptions = {
     chart: {
@@ -43,10 +50,7 @@ export default function AffiliateProgress() {
     colors,
     stroke: { width: 0 },
     legend: {
-      position: "bottom",
-      fontSize: "13px",
-      fontWeight: 500,
-      itemMargin: { horizontal: 10, vertical: 6 },
+      show: false, // show data
     },
     dataLabels: {
       enabled: true,
@@ -61,15 +65,18 @@ export default function AffiliateProgress() {
     tooltip: {
       enabled: true,
       y: {
+        title: {
+          formatter: () => "",
+        },
         formatter: (_val, { seriesIndex }) => {
-          const item = progress[seriesIndex];
-          return `Lot: ${item?.lotsize}`;
+          const item = progressNew[seriesIndex];
+          return `Level ${item?.level} — Commission: $${item?.user_comm}`;
         },
       },
     },
     responsive: [
       { breakpoint: 1024, options: { chart: { height: 320 } } },
-      { breakpoint: 640, options: { legend: { position: "bottom", fontSize: "12px" } } },
+      { breakpoint: 640, options: { chart: { height: 280 } } },
     ],
   };
 
@@ -99,9 +106,43 @@ export default function AffiliateProgress() {
               No data available
             </div>
           ) : (
-            <div className="mx-auto max-w-[420px] sm:max-w-[460px]">
-              <ReactApexChart options={options} series={series} type="pie" height={316} />
-            </div>
+            <>
+              <div className="mx-auto max-w-[420px] sm:max-w-[460px]">
+                <ReactApexChart options={options} series={series} type="pie" height={255} />
+              </div>
+
+              {/* Custom legend — level wise commission */}
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                {/* {progressNew.map((p, i) => (
+                
+                  <div
+                    key={p.level}
+                    className="flex items-center gap-2 rounded-lg border border-gray-100 bg-gray-50 px-3 py-2 dark:border-gray-700 dark:bg-gray-800"
+                  >
+                    <span
+                      className="h-3 w-3 shrink-0 rounded-full"
+                      style={{ backgroundColor: LEVEL_COLORS[i % LEVEL_COLORS.length] }}
+                    />
+                    <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                      Level {p.level}
+                    </span>
+                    <span className="text-xs font-semibold text-gray-800 dark:text-white">
+                      ${p.user_comm}
+                    </span>
+                  </div>
+                ))} */}
+
+                {/* Total */}
+                <div className="flex items-center gap-2 rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-2 dark:border-indigo-800 dark:bg-indigo-900/20">
+                  <span className="text-xs font-medium text-indigo-600 dark:text-indigo-300">
+                    Total Commission:
+                  </span>
+                  <span className="text-xs font-semibold text-indigo-700 dark:text-indigo-200">
+                    ${totalCommSum.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>

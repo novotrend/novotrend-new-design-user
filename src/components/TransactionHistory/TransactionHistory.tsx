@@ -152,8 +152,6 @@ export default function TransactionHistory() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
   const currentRows = filtered.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
-  // console.log("currentRows", currentRows);
-
   //  Date label
   const dateLabel = useMemo(() => {
     if (!startDate && !endDate) return "";

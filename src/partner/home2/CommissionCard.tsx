@@ -68,19 +68,19 @@ export default function CommissionCard({ amount }: CommissionCardProps) {
 
       {/* Modal */}
       {openModal && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4 dark:border-gray-800 dark:bg-white/[0.03]">
-          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
+        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4 dark:bg-black/60">
+          <div className="relative w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl dark:bg-slate-800">
             {/* Close Button */}
             <button
               onClick={() => setOpenModal(false)}
-              className="absolute top-5 right-5 rounded-full bg-gray-100 p-2 text-gray-500 transition hover:bg-gray-200"
+              className="absolute top-5 right-5 rounded-full bg-gray-100 p-2 text-gray-500 transition hover:bg-gray-200 dark:bg-slate-700 dark:text-gray-300 dark:hover:bg-slate-600"
             >
               <X size={18} />
             </button>
 
             {/* Modal Heading */}
-            <div className="mb-8 rounded-xl border border-indigo-200 bg-indigo-50 px-6 py-4 text-center">
-              <h2 className="text-3xl font-bold text-gray-900">Partner Levels</h2>
+            <div className="mb-8 rounded-xl border border-indigo-200 bg-indigo-50 px-6 py-4 text-center dark:border-indigo-800 dark:bg-indigo-950/50">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Partner Levels</h2>
             </div>
 
             {/* Levels List */}
@@ -88,13 +88,15 @@ export default function CommissionCard({ amount }: CommissionCardProps) {
               {partnerLevels.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between rounded-xl border border-gray-100 px-4 py-3 transition hover:border-indigo-200 hover:bg-indigo-50/50"
+                  className="flex items-center justify-between rounded-xl border border-gray-100 px-4 py-3 transition hover:border-indigo-200 hover:bg-indigo-50/50 dark:border-slate-700 dark:hover:border-indigo-700 dark:hover:bg-indigo-950/30"
                 >
                   <div className="flex items-center gap-3">
-                    <p className="text-lg font-medium text-gray-800">{item.level}</p>
+                    <p className="text-lg font-medium text-gray-800 dark:text-gray-200">
+                      {item.level}
+                    </p>
                   </div>
 
-                  <div className="rounded-full bg-indigo-100 px-4 py-1 text-sm font-semibold text-indigo-700">
+                  <div className="rounded-full bg-indigo-100 px-4 py-1 text-sm font-semibold text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
                     {item.percentage}
                   </div>
                 </div>

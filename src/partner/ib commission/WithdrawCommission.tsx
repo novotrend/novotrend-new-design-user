@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
-import images1 from "../../../public/images/grid-image/commission-icon.jpg";
+// import images1 from "../../../public/images/grid-image/commission-icon.jpg";
 import images2 from "../../../public/images/grid-image/commission.jpg";
 import {
   useIBCommission,
@@ -100,7 +100,7 @@ export default function WithdrawCommission() {
 
             <div className="grid grid-cols-6 items-center gap-6">
               {/* Vector image */}
-              <div className="col-span-2 flex justify-center">
+              {/* <div className="col-span-2 flex justify-center">
                 <Image
                   src={images1}
                   alt="Withdraw Commission Icon"
@@ -108,7 +108,7 @@ export default function WithdrawCommission() {
                   width={500}
                   height={400}
                 />
-              </div>
+              </div> */}
 
               {/* Form */}
               <div className="col-span-4 space-y-4">
@@ -152,7 +152,7 @@ export default function WithdrawCommission() {
                     value={dataLoading ? "Loading..." : `$ ${totalCommission.toLocaleString()}`}
                     className="w-full cursor-not-allowed rounded-xl border-none bg-gray-100 px-4 py-3 text-gray-700 dark:bg-white/5 dark:text-gray-300"
                   />
-                  <p className="text-xs text-gray-400 dark:text-gray-500">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     Maximum withdrawable:{" "}
                     <span className="font-semibold text-gray-600 dark:text-gray-300">
                       ${totalCommission}
@@ -181,7 +181,7 @@ export default function WithdrawCommission() {
                     onWheel={(e) => (e.target as HTMLInputElement).blur()}
                     onKeyDown={(e) => ["e", "E", "+", "-"].includes(e.key) && e.preventDefault()}
                     placeholder="Enter withdraw amount"
-                    className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 transition outline-none focus:ring-2 focus:ring-indigo-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                    className="w-full appearance-none rounded-xl border border-gray-300 bg-white px-4 py-3 transition outline-none focus:ring-2 focus:ring-indigo-500 dark:border-white/10 dark:bg-white/5 dark:text-white [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
                 </div>
 

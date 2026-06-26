@@ -202,10 +202,11 @@ export default function WithDrawsFund() {
               </div>
 
               {/* Filter */}
+              {/* Filter */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setShowDropdown((s) => !s)}
-                  className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium dark:border-slate-700 dark:bg-slate-800"
+                  className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-medium dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 >
                   <Filter className="h-4 w-4" />
                   Filter: {filter}
@@ -218,7 +219,7 @@ export default function WithDrawsFund() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.16 }}
-                      className="absolute right-0 z-30 mt-2 w-44 rounded-lg border bg-white dark:bg-slate-800"
+                      className="absolute right-0 z-30 mt-2 w-44 rounded-lg border bg-white dark:border-gray-700 dark:bg-slate-800"
                     >
                       {["All", "Deposit", "Crypto", "Coming Soon"].map((t) => (
                         <button
@@ -227,7 +228,7 @@ export default function WithDrawsFund() {
                             setFilter(t);
                             setShowDropdown(false);
                           }}
-                          className="block w-full px-4 py-2 text-left text-sm"
+                          className="block w-full px-4 py-2 text-left text-sm hover:bg-slate-100 dark:text-gray-200 dark:hover:bg-slate-700"
                         >
                           {t}
                         </button>
@@ -244,7 +245,7 @@ export default function WithDrawsFund() {
                 <motion.article
                   key={acc.id}
                   whileHover={{ scale: acc.status === "Active" ? 1.02 : 1 }}
-                  className={`relative rounded-2xl border p-5 shadow-sm transition-all ${
+                  className={`relative rounded-2xl border p-5 shadow-sm transition-all dark:border-gray-700 dark:bg-slate-800 ${
                     acc.status !== "Active" ? "cursor-not-allowed opacity-70" : ""
                   }`}
                 >
@@ -255,20 +256,20 @@ export default function WithDrawsFund() {
                       <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/30 text-2xl shadow-sm backdrop-blur-sm">
                         {acc.icon}
                       </div>
-                      <h3 className="text-sm font-semibold">{acc.name}</h3>
+                      <h3 className="text-sm font-semibold dark:text-white">{acc.name}</h3>
                     </div>
-                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs text-green-700">
+                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs text-green-700 dark:bg-green-900 dark:text-green-300">
                       {acc.status}
                     </span>
                   </div>
 
                   <div className="mt-4 flex items-center justify-between text-xs">
-                    <div>Fees: {acc.fees}</div>
-                    <div>Limits: {acc.limits}</div>
+                    <div className="dark:text-gray-200">Fees: {acc.fees}</div>
+                    <div className="dark:text-gray-200">Limits: {acc.limits}</div>
                   </div>
 
                   <div className="flex justify-between">
-                    <p className="mt-1 text-xs">Processing time: Instant</p>
+                    <p className="mt-1 text-xs dark:text-gray-200">Processing time: Instant</p>
                     <button
                       onClick={() => handleDepositClick(acc)}
                       disabled={acc.status !== "Active"}

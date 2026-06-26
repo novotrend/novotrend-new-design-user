@@ -223,12 +223,12 @@ export default function AccountModal({ type, onClose, mt5id, nickname }: Account
 
         {/* MT5 ID — common */}
         <div>
-          <label className="text-sm font-medium">MT5 ID</label>
+          <label className="text-sm font-medium dark:text-gray-400">MT5 ID</label>
           <input
             type="text"
             value={mt5id}
             readOnly
-            className="mt-1 w-full rounded-xl border bg-transparent px-3 py-2 text-gray-500 outline-none"
+            className="mt-1 w-full rounded-xl border bg-transparent px-3 py-2 text-gray-500 outline-none dark:border-slate-700 dark:text-slate-400"
           />
         </div>
 
@@ -245,11 +245,10 @@ export default function AccountModal({ type, onClose, mt5id, nickname }: Account
                     setPasswordType(e.target.value as "main" | "investor" | "both");
                   },
                 })}
-                className="mt-1 w-full rounded-xl border bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
+                className="mt-1 w-full rounded-xl border bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-gray-200"
               >
                 <option value="main">Main</option>
                 <option value="investor">Investor</option>
-                {/* <option value="both">Both</option> */}
               </select>
             </div>
 

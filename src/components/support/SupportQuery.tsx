@@ -9,8 +9,6 @@ import {
 } from "@/features/crm/team-support/hooks/team-support.hooks";
 import { submitTicketSchema } from "@/features/crm/team-support/schemas/team-support.schemas";
 
-//  Contact info + Socials
-
 const CONTACT_INFO = [
   {
     href: "mailto:support@novotrend.co",
@@ -138,7 +136,6 @@ export default function SupportQuery() {
   const { data: categories = [], isLoading: categoriesLoading } = useSupportCategories();
   const createTicket = useCreateTicket();
 
-  //  Form state 
   const [category, setCategory] = useState("");
   const [question, setQuestion] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -148,7 +145,6 @@ export default function SupportQuery() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  //  Reset form on success 
   useEffect(() => {
     if (createTicket.isSuccess && createTicket.data?.status === 200) {
       setCategory("");
@@ -160,10 +156,9 @@ export default function SupportQuery() {
     }
   }, [createTicket.isSuccess, createTicket.data]);
 
-  //  File handler 
   const handleFile = (f: File | null) => {
     if (!f) return;
-    if (f.size > 5 * 1024 * 1024) return; // 5MB guard
+    if (f.size > 5 * 1024 * 1024) return;
     setFile(f);
     if (f.type.startsWith("image/")) {
       const reader = new FileReader();
@@ -174,7 +169,6 @@ export default function SupportQuery() {
     }
   };
 
-  //  Submit 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFieldErrors({});
@@ -209,29 +203,20 @@ export default function SupportQuery() {
     : (createTicket.data?.result ?? "");
 
   return (
-    <div className="mx-auto max-w-5xl bg-white p-4 max-lg:max-w-3xl">
+    <div className="mx-auto max-w-5xl bg-white p-4 max-lg:max-w-3xl dark:bg-slate-900">
       {/* Header */}
       <div className="px-6 text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">
+        <h2 className="text-3xl font-semibold text-slate-900 dark:text-white">
           Need Assistance? {"We've"} Got Your Back
         </h2>
-        <p className="mt-4 text-[15px] text-slate-600">
+        <p className="mt-4 text-[15px] text-slate-600 dark:text-slate-400">
           Our expert support team is available 24/7 to resolve your issues, answer questions, and
           guide you at every step of your trading journey.
         </p>
       </div>
 
       <div className="mt-12 grid items-stretch rounded-lg p-2 [box-shadow:0_2px_10px_-3px_rgba(115,120,131,0.6)] lg:grid-cols-5">
-        {/* ── Left: Contact Info — paste CONTACT_INFO + SOCIALS same as before ── */}
-        {/* <div className="relative overflow-hidden rounded-lg bg-indigo-800 p-6 max-lg:order-1 max-lg:mt-12 lg:col-span-2">
-          <h3 className="text-[24px] font-medium text-white">Contact Information</h3>
-          <p className="mt-4 text-[15px] leading-relaxed text-slate-300">
-            Have some big idea or brand to develop and need help?
-          </p>
-          
-          <div className="absolute -right-24 -bottom-24 h-60 w-60 rounded-full bg-teal-500 opacity-60" />
-        </div> */}
-
+        {/* Left: Contact Info */}
         <div className="relative overflow-hidden rounded-lg bg-indigo-800 p-6 max-lg:order-1 max-lg:mt-12 lg:col-span-2">
           <h3 className="text-[24px] font-medium text-white">Contact Information</h3>
           <p className="mt-4 text-[15px] leading-relaxed text-slate-300">
@@ -269,7 +254,7 @@ export default function SupportQuery() {
           <div className="absolute -right-24 -bottom-24 h-60 w-60 rounded-full bg-teal-500 opacity-60" />
         </div>
 
-        {/* ── Right: Form ── */}
+        {/* Right: Form */}
         <div className="px-4 py-6 sm:px-8 lg:col-span-3">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Success */}
@@ -302,9 +287,9 @@ export default function SupportQuery() {
               )}
             </AnimatePresence>
 
-            {/* Support Type — API se */}
+            {/* Support Type */}
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">
                 Select Support Type <span className="text-red-500">*</span>
               </label>
               <select
@@ -313,7 +298,7 @@ export default function SupportQuery() {
                   setCategory(e.target.value);
                   setFieldErrors((p) => ({ ...p, category: "" }));
                 }}
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-slate-800 focus:ring-1 focus:ring-indigo-500 focus:outline-none ${fieldErrors.category ? "border-red-400" : "border-slate-300"}`}
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-slate-800 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:border-gray-700 dark:bg-slate-800 dark:text-gray-200 ${fieldErrors.category ? "border-red-400" : "border-slate-300"}`}
               >
                 <option value="">{categoriesLoading ? "Loading..." : "Select support type"}</option>
                 {categories.map((cat) => (
@@ -329,7 +314,7 @@ export default function SupportQuery() {
 
             {/* Question */}
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">
                 Write Message <span className="text-red-500">*</span>
               </label>
               <textarea
@@ -340,7 +325,7 @@ export default function SupportQuery() {
                   setFieldErrors((p) => ({ ...p, question: "" }));
                 }}
                 placeholder="Describe your issue in detail..."
-                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-slate-900 transition outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 ${fieldErrors.question ? "border-red-400" : "border-slate-300"}`}
+                className={`w-full rounded-lg border bg-white px-4 py-3 text-sm text-slate-900 transition outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-gray-700 dark:bg-slate-800 dark:text-gray-200 dark:placeholder:text-slate-500 ${fieldErrors.question ? "border-red-400" : "border-slate-300"}`}
               />
               {fieldErrors.question && (
                 <p className="mt-1 text-xs text-red-500">{fieldErrors.question}</p>
@@ -349,8 +334,11 @@ export default function SupportQuery() {
 
             {/* File Upload */}
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Attach File <span className="text-xs font-normal text-slate-400">(Max 5MB)</span>
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">
+                Attach File{" "}
+                <span className="text-xs font-normal text-slate-400 dark:text-slate-500">
+                  (Max 5MB)
+                </span>
               </label>
               <div
                 onClick={() => fileInputRef.current?.click()}
@@ -364,14 +352,22 @@ export default function SupportQuery() {
                   setIsDragging(false);
                   handleFile(e.dataTransfer.files[0]);
                 }}
-                className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-4 py-5 text-center transition ${isDragging ? "border-indigo-500 bg-indigo-50" : "border-slate-300 bg-slate-50 hover:border-indigo-400 hover:bg-indigo-50/50"}`}
+                className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-4 py-5 text-center transition ${
+                  isDragging
+                    ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-950"
+                    : "border-slate-300 bg-slate-50 hover:border-indigo-400 hover:bg-indigo-50/50 dark:border-gray-700 dark:bg-slate-800 dark:hover:border-indigo-500 dark:hover:bg-indigo-950/40"
+                }`}
               >
-                <Upload className="h-6 w-6 text-slate-400" />
-                <p className="text-sm text-slate-600">
-                  <span className="font-medium text-indigo-600">Click to upload</span> or drag &
-                  drop
+                <Upload className="h-6 w-6 text-slate-400 dark:text-slate-500" />
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <span className="font-medium text-indigo-600 dark:text-indigo-400">
+                    Click to upload
+                  </span>{" "}
+                  or drag & drop
                 </p>
-                <p className="text-xs text-slate-400">PNG, JPG, PDF up to 5MB</p>
+                <p className="text-xs text-slate-400 dark:text-slate-500">
+                  PNG, JPG, PDF up to 5MB
+                </p>
               </div>
               <input
                 ref={fileInputRef}
@@ -381,10 +377,12 @@ export default function SupportQuery() {
                 onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
               />
               {file && (
-                <div className="mt-3 flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
+                <div className="mt-3 flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-gray-700 dark:bg-slate-800">
                   <div className="flex min-w-0 items-center gap-2">
                     <Paperclip className="h-4 w-4 shrink-0 text-indigo-500" />
-                    <span className="truncate text-xs text-slate-700">{file.name}</span>
+                    <span className="truncate text-xs text-slate-700 dark:text-gray-200">
+                      {file.name}
+                    </span>
                   </div>
                   <button
                     type="button"
@@ -392,7 +390,7 @@ export default function SupportQuery() {
                       setFile(null);
                       setPreview("");
                     }}
-                    className="ml-2 shrink-0 rounded-full p-0.5 text-slate-400 hover:bg-red-50 hover:text-red-500"
+                    className="ml-2 shrink-0 rounded-full p-0.5 text-slate-400 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-950"
                   >
                     <X className="h-3.5 w-3.5" />
                   </button>
@@ -402,13 +400,13 @@ export default function SupportQuery() {
                 <img
                   src={preview}
                   alt="Preview"
-                  className="mt-3 h-32 w-32 rounded-lg border object-cover"
+                  className="mt-3 h-32 w-32 rounded-lg border object-cover dark:border-gray-700"
                 />
               )}
             </div>
 
             {/* Submit */}
-            <div className="flex justify-end border-t border-slate-100 pt-4">
+            <div className="flex justify-end border-t border-slate-100 pt-4 dark:border-slate-700">
               <button
                 type="submit"
                 disabled={isSubmitting || !category || !question}

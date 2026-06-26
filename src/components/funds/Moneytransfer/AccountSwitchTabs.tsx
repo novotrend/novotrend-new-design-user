@@ -265,7 +265,7 @@ export default function AccountSwitchTabs() {
                     resetOtp();
                     setOtp("");
                   }}
-                  className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-slate-800 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:text-white ${fieldErrors.mt5accountselect ? "border-red-400" : "border-slate-300 dark:border-slate-700"}`}
+                  className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-slate-800 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:bg-slate-800 dark:text-white ${fieldErrors.mt5accountselect ? "border-red-400" : "border-slate-300 dark:border-slate-700"}`}
                 >
                   <option value="">
                     {accountsLoading ? "Loading accounts..." : "Select MT5 Account"}
@@ -293,7 +293,7 @@ export default function AccountSwitchTabs() {
                 </label>
                 <select
                   disabled
-                  className="w-full cursor-not-allowed rounded-lg border border-slate-300 bg-transparent px-4 py-3 text-sm text-slate-800 dark:border-slate-700 dark:text-white"
+                  className="w-full cursor-not-allowed rounded-lg border border-slate-300 bg-transparent px-4 py-3 text-sm text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 >
                   <option>Personal Wallet ({user?.balance})</option>
                 </select>
@@ -328,7 +328,7 @@ export default function AccountSwitchTabs() {
                     setToAccount(e.target.value);
                     setFieldErrors((p) => ({ ...p, mt5_receiverid: "" }));
                   }}
-                  className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-slate-800 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:text-white ${fieldErrors.receiverid ? "border-red-400" : "border-slate-300 dark:border-slate-700"}`}
+                  className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-slate-800 focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:bg-slate-800 dark:text-white ${fieldErrors.receiverid ? "border-red-400" : "border-slate-300 dark:border-slate-700"}`}
                 >
                   <option value="">
                     {accountsLoading ? "Loading accounts..." : "Select MT5 Account"}
@@ -356,7 +356,7 @@ export default function AccountSwitchTabs() {
                 </label>
                 <select
                   disabled
-                  className="w-full cursor-not-allowed rounded-lg border border-slate-300 bg-transparent px-4 py-3 text-sm text-slate-800 dark:border-slate-700 dark:text-white"
+                  className="w-full cursor-not-allowed rounded-lg border border-slate-300 bg-transparent px-4 py-3 text-sm text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                 >
                   <option>Personal Wallet ({user?.balance})</option>
                 </select>
@@ -549,7 +549,7 @@ export default function AccountSwitchTabs() {
   );
 }
 
-// ─── Tabs Header — extracted ───────────────────────────────────────────────────
+// Tabs Header — extracted 
 
 function TabsHeader({
   activeTab,

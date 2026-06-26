@@ -301,7 +301,7 @@ const UserProfile = () => {
     const poaBackOk = !!fileBack2 || !!kyc?.address_photo_back;
 
     // first time, 4 files mandatory
-    // edit 
+    // edit
     if (!poiFrontOk || !poiBackOk || !poaFrontOk || !poaBackOk) {
       const missing: string[] = [];
       if (!poiFrontOk) missing.push("POI Front");
@@ -416,7 +416,7 @@ const UserProfile = () => {
 
         {/* Tabs */}
         <div className="mt-8 flex justify-center space-x-6 border-b border-gray-200 dark:border-gray-700">
-          {tabs.map((tab) => (
+          {/* {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -424,6 +424,19 @@ const UserProfile = () => {
                 activeTab === tab
                   ? "border-b-2 border-indigo-600 text-indigo-600"
                   : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              }`}
+            >
+              {tab}
+            </button>
+          ))} */}
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`pb-2 text-sm font-medium transition-all sm:text-base ${
+                activeTab === tab
+                  ? "border-b-2 border-indigo-600 text-indigo-600"
+                  : "text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-gray-300"
               }`}
             >
               {tab}
@@ -450,7 +463,7 @@ const UserProfile = () => {
                     <h3 className="font-semibold text-gray-900 dark:text-white">
                       Profile Completion
                     </h3>
-                    <div className="mt-2 h-2 w-full rounded-full bg-gray-200">
+                    <div className="mt-2 h-2 w-full rounded-full bg-gray-200 dark:text-gray-300">
                       <div
                         className="h-2 rounded-full bg-[#465FFF] transition-all duration-700"
                         style={{ width: kycLoading ? "0%" : `${completionPercent}%` }}
@@ -466,12 +479,12 @@ const UserProfile = () => {
                     </h4>
 
                     <div className="space-y-2">
-                      <p className="text-md flex items-center gap-2 text-gray-500">
+                      <p className="text-md flex items-center gap-2 text-gray-500 dark:text-gray-400">
                         <Phone size={18} strokeWidth={2.5} className="shrink-0" />
                         <span>{profileData?.user_reg_code ?? "—"}</span>
                       </p>
 
-                      <p className="flex items-center gap-2 text-sm text-gray-500">
+                      <p className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                         <Mail size={18} strokeWidth={2.5} className="shrink-0" />
                         <span>{profileData?.user_mobile ?? "—"}</span>
                       </p>
@@ -588,7 +601,7 @@ const UserProfile = () => {
 
                       {/* Bio — Optional field, no asterisk */}
                       <div>
-                        <label className="text-md text-gray-500">
+                        <label className="text-md text-gray-500 dark:text-gray-400">
                           Bio{" "}
                           <span className="text-md text-gray-400">
                             ({watchedProfile.bio?.length ?? 0}/300)
@@ -646,7 +659,7 @@ const UserProfile = () => {
                     </p>
                   </div>
 
-                  {kycData && (
+                  {/* {kycData && (
                     <p className="text-sm font-medium whitespace-nowrap">
                       Status:{" "}
                       <span
@@ -655,7 +668,26 @@ const UserProfile = () => {
                         {status}
                       </span>
                     </p>
-                  )}
+                  )} */}
+                  {kycData ? (
+                    status ? (
+                      <p className="text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400">
+                        Status:{" "}
+                        <span
+                          className={
+                            statusClasses[status.toLowerCase() as Status] ??
+                            "text-gray-500 dark:text-gray-400"
+                          }
+                        >
+                          {status.charAt(0).toUpperCase() + status.slice(1)}
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="text-sm font-medium whitespace-nowrap text-gray-400 dark:text-slate-500">
+                        No submission yet
+                      </p>
+                    )
+                  ) : null}
                 </div>
 
                 {kycLoading ? (
@@ -798,7 +830,7 @@ const UserProfile = () => {
                         {...register("current_password")}
                         placeholder="Enter current password"
                         type={CurrentshowPassword ? "text" : "password"}
-                        className="pr-12"
+                        className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pr-12 focus:ring-2 focus:ring-indigo-400 dark:border-gray-700 dark:bg-slate-800"
                       />
                       <button
                         type="button"

@@ -58,10 +58,12 @@ export default function WithdrawCommission() {
     const parsedAmount = parseFloat(amount);
     if (!amount || isNaN(parsedAmount) || parsedAmount <= 0) {
       setErrorMsg("Please enter a valid amount.");
+      setTimeout(() => setErrorMsg(""), 3000);
       return;
     }
     if (parsedAmount > totalCommission) {
       setErrorMsg(`Maximum withdrawable amount is $${totalCommission}`);
+      setTimeout(() => setErrorMsg(""), 3000);
       return;
     }
 
@@ -69,8 +71,10 @@ export default function WithdrawCommission() {
     if (res.status === 200) {
       setSuccessMsg(res.result || "Withdrawal successful!");
       setAmount("");
+      setTimeout(() => setSuccessMsg(""), 3000);
     } else {
       setErrorMsg(res.result || "Withdrawal failed. Please try again.");
+      setTimeout(() => setErrorMsg(""), 3000); 
     }
   };
 

@@ -76,8 +76,6 @@ export default function TransactionHistory() {
   const { data, status, errorMessage, fetchData } = useTransactionHistory();
   const { mt5Accounts, isLoading: accountsLoading } = useMT5Accounts();
 
-  console.log("data-->", data); 
-
   const [activeTab, setActiveTab] = useState<TransactionTab>("All"); // all Transaction
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedAccount, setSelectedAccount] = useState("");
@@ -180,15 +178,15 @@ export default function TransactionHistory() {
         </div>
 
         {/* Export dropdown */}
-        <div className="relative" ref={exportRef}>
+        <div className="relative w-full sm:w-auto" ref={exportRef}>
           <button
             onClick={() => setExportOpen((p) => !p)}
-            className="flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm hover:bg-gray-100 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2 text-sm hover:bg-gray-100 sm:w-auto dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           >
             <Download size={16} /> Export
           </button>
           {isExportOpen && (
-            <div className="absolute right-0 z-20 mt-2 w-40 rounded-md border bg-white py-2 text-sm shadow-lg dark:border-slate-700 dark:bg-slate-800">
+            <div className="absolute right-0 left-0 z-20 mt-2 rounded-md border bg-white py-2 text-sm shadow-lg sm:right-0 sm:left-auto sm:w-40 dark:border-slate-700 dark:bg-slate-800">
               {[
                 {
                   label: "PDF",

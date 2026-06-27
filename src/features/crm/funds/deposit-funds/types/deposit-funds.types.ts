@@ -6,7 +6,7 @@ export interface BankDetail {
   accno: string;
   ifsc: string;
   swiftcode: string;
-  iban_number: string;
+  iban_number?: string;
 }
 
 export type GetBankResponse = BankDetail[];

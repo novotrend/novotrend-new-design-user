@@ -8,7 +8,7 @@ export const addUserBankApi = async (payload: AddBankPayload): Promise<AddBankRe
   formData.append("accname", payload.accname);
   formData.append("accno", payload.accno);
   formData.append("ifsc", payload.ifsc.toUpperCase());
-  formData.append("iban_number", payload.iban_number);
+  formData.append("iban_number", payload.iban_number ?? "");
   formData.append("bankaddress", payload.bankaddress);
 
   if (payload.kyc_bank_image) {

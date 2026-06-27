@@ -118,7 +118,7 @@ export default function AffiliateProgress({ progress, inviteLink, data }: Affili
         </p>
 
         {/* Circles Section */}
-        <div className="flex flex-col items-center justify-center gap-10 sm:flex-row">
+        <div className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:justify-around">
           {/* Progress 1 */}
           <div className="relative flex h-44 w-44 flex-col items-center justify-center">
             <svg className="absolute inset-0 h-full w-full" viewBox="0 0 36 36">
@@ -160,7 +160,9 @@ export default function AffiliateProgress({ progress, inviteLink, data }: Affili
             </div>
           </div>
 
-          <p className="mt-4 text-center font-medium text-gray-600 dark:text-white/90 ">Trading Lots</p>
+          <p className="mt-4 text-center font-medium text-gray-600 dark:text-white/90">
+            Trading Lots
+          </p>
 
           {/* Progress 2 */}
           <div className="relative flex h-44 w-44 flex-col items-center justify-center">
@@ -193,22 +195,24 @@ export default function AffiliateProgress({ progress, inviteLink, data }: Affili
 
             {/* Center Content */}
             <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center dark:text-white/90">
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white/90 dark:text-white/90">
+              <p className="text-2xl font-semibold text-gray-900 dark:text-white/90">
                 {data?.royaltyinfo?.levelachieve_client ?? "-"}
               </p>
 
-              <span className="text-sm text-gray-500 dark:text-white/90 dark:text-white/90">
+              <span className="text-sm text-gray-500 dark:text-white/90">
                 of {data?.royaltyinfo?.levelrequired_client ?? "-"}
               </span>
             </div>
           </div>
 
-          <p className="mt-4 text-center font-medium text-gray-600 dark:text-white/90 ">Active Clients</p>
+          <p className="mt-4 text-center font-medium text-gray-600 dark:text-white/90">
+            Active Clients
+          </p>
         </div>
 
         {/* Invite Link / Code Section */}
-        <div className="rounded-xl border bg-gray-50 p-2 dark:border-gray-800 dark:bg-white/[0.03]">
-          <div className="flex items-center gap-3 dark:text-white/90 ">
+        <div className="w-full overflow-hidden rounded-xl border bg-gray-50 p-2 dark:border-gray-800 dark:bg-white/[0.03]">
+          <div className="flex w-full items-center gap-2 overflow-hidden dark:text-white/90">
             {/* Partner Link Toggle */}
             <button
               onClick={() => setPartnerView("link")}
@@ -228,7 +232,7 @@ export default function AffiliateProgress({ progress, inviteLink, data }: Affili
             {/* Partner Code Toggle */}
             <button
               onClick={() => setPartnerView("code")}
-              className={`group relative rounded-lg p-1 transition ${
+              className={`group relative shrink-0 rounded-lg p-1 transition ${
                 partnerView === "code"
                   ? "bg-indigo-100 text-indigo-600"
                   : "text-gray-500 hover:bg-gray-100"
@@ -245,7 +249,7 @@ export default function AffiliateProgress({ progress, inviteLink, data }: Affili
             <input
               readOnly
               value={currentValue}
-              className="flex-1 truncate bg-transparent text-sm text-gray-600 outline-none dark:text-white/90"
+              className="min-w-0 flex-1 overflow-hidden bg-transparent text-sm text-ellipsis whitespace-nowrap text-gray-600 outline-none dark:text-white/90"
             />
 
             {/* Copy Button */}

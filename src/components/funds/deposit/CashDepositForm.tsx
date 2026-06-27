@@ -225,7 +225,8 @@ export default function CashDepositForm({ onBack }: CashDepositFormProps) {
             </label>
 
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               name="amount"
               min="0"
               value={formData.amount}

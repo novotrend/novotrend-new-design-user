@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { format } from "date-fns";
-// import images1 from "../../../public/images/grid-image/commission-icon.jpg";
 import images2 from "../../../public/images/grid-image/commission.jpg";
 import {
   useIBCommission,
@@ -74,7 +73,7 @@ export default function WithdrawCommission() {
       setTimeout(() => setSuccessMsg(""), 3000);
     } else {
       setErrorMsg(res.result || "Withdrawal failed. Please try again.");
-      setTimeout(() => setErrorMsg(""), 3000); 
+      setTimeout(() => setErrorMsg(""), 3000);
     }
   };
 
@@ -83,7 +82,7 @@ export default function WithdrawCommission() {
   return (
     <>
       {/* Commission History toggle */}
-      <div className="flex justify-end">
+      <div className="flex justify-center md:justify-end">
         <button
           type="button"
           onClick={() => setShowHistory((p) => !p)}
@@ -97,25 +96,14 @@ export default function WithdrawCommission() {
       <div className="flex w-full items-center justify-center px-4 py-10">
         <div className="grid w-full max-w-6xl grid-cols-1 overflow-hidden rounded-xl border border-gray-200/30 bg-white shadow-xl md:grid-cols-7 dark:border-white/5 dark:bg-slate-800">
           {/* Left — Withdraw Panel */}
-          <div className="col-span-4 flex flex-col justify-center p-8 md:p-10">
-            <h2 className="mb-8 text-2xl font-semibold text-gray-800 dark:text-white">
+          <div className="col-span-4 flex flex-col justify-center p-5 sm:p-6 md:p-10">
+            <h2 className="mb-6 text-xl font-semibold sm:text-2xl text-gray-800 dark:text-white">
               Withdraw Commission
             </h2>
 
-            <div className="grid grid-cols-6 items-center gap-6">
-              {/* Vector image */}
-              {/* <div className="col-span-2 flex justify-center">
-                <Image
-                  src={images1}
-                  alt="Withdraw Commission Icon"
-                  className="h-full w-full"
-                  width={500}
-                  height={400}
-                />
-              </div> */}
-
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-6 md:items-center">
               {/* Form */}
-              <div className="col-span-4 space-y-4">
+              <div className="space-y-4 md:col-span-4">
                 {/* Success */}
                 <AnimatePresence>
                   {successMsg && (
@@ -193,7 +181,7 @@ export default function WithdrawCommission() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting || !amount || dataLoading}
-                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-base text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50 md:w-[75%] lg:w-[60%] dark:bg-indigo-500 dark:hover:bg-indigo-600"
+                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-base text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50 md:max-w-sm dark:bg-indigo-500 dark:hover:bg-indigo-600"
                 >
                   {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
                   {isSubmitting ? "Processing..." : "Withdraw"}
@@ -225,7 +213,7 @@ export default function WithdrawCommission() {
             transition={{ duration: 0.2 }}
             className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md dark:border-white/10 dark:bg-slate-800"
           >
-            <div className="border-b border-gray-200 px-6 py-4 dark:border-white/10">
+            <div className="border-b border-gray-200 px-4 py-4 sm:px-6 dark:border-white/10">
               <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                 IB Commission History
               </h4>
@@ -270,13 +258,13 @@ export default function WithdrawCommission() {
                         <td className="border border-gray-300 px-5 py-3 whitespace-nowrap dark:border-white/10 dark:bg-slate-800">
                           {formatDate(row?.date) || "-"}
                         </td>
-                        <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
+                        <td className="max-w-[220px] break-words border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
                           $ {row?.amount || "-"}
                         </td>
-                        <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
+                        <td className="max-w-[220px] break-words border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
                           {row?.remark || "-"}
                         </td>
-                        <td className="border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
+                        <td className="max-w-[220px] break-words border border-gray-300 px-5 py-3 dark:border-white/10 dark:bg-slate-800">
                           <StatusBadge status={row?.status || "-"} />
                         </td>
                       </tr>

@@ -23,9 +23,16 @@ export const bankAccountSchema = z.object({
     .regex(/^[A-Z]{4}0[A-Z0-9]{6}$/, "Invalid IFSC format (e.g., HDFC0001234)"),
 
   iban_number: z
-    .string()
-    .min(1, "IBAN number is required")
-    .min(15, "IBAN must be at least 15 characters"),
+    .union([
+      z
+        .string()
+        .regex(
+          /^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$/,
+          "Invalid IBAN format (e.g., GB29NWBK60161331926819)"
+        ),
+      z.literal(""),
+    ])
+    .optional(),
 
   bankaddress: z
     .string()

@@ -38,7 +38,7 @@ api.interceptors.request.use(
       }
     }
 
-    // Log check 
+    // Log check
     // if (config.data instanceof FormData) {
     //   const rawPayload: Record<string, any> = {};
 
@@ -83,7 +83,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// core function 
+// core function
 // api.interceptors.request.use(async (config) => {
 //   if (config.data) {
 //     console.log("payload-req", config.data);
@@ -94,7 +94,7 @@ api.interceptors.request.use(
 //   return config;
 // });
 
-//  RESPONSE with encrepted 
+//  RESPONSE with encrepted
 // api.interceptors.response.use(async (response) => {
 //   if (response.data) {
 //     // console.log("encrepted-data", response.data);
@@ -105,8 +105,41 @@ api.interceptors.request.use(
 //   return response;
 // });
 
+// token expiry
 
-// token expiry 
+// api.interceptors.response.use(
+//   async (response) => {
+//     try {
+//       if (response.data) {
+//         const decrypted = await decryptResponse(response.data);
+//         response.data = JSON.parse(decrypted);
+//       }
+
+//       return response;
+//     } catch (error) {
+//       console.error("Response decryption failed:", error);
+//       return Promise.reject(error);
+//     }
+//   },
+
+//   async (error) => {
+//     // Handle Unauthorized (401)
+//     if (error.response?.status === 401) {
+//       console.warn("Session expired. Logging out...");
+//       console.log("Session expired. Logging out...");
+
+//       // Remove auth cookie
+//       document.cookie =
+//         "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+//       // queryClient.clear();
+//       // Redirect to login page
+//       window.location.href = "/sign-in";
+//     }
+
+//     return Promise.reject(error);
+//   }
+// );
 
 api.interceptors.response.use(
   async (response) => {
@@ -114,6 +147,13 @@ api.interceptors.response.use(
       if (response.data) {
         const decrypted = await decryptResponse(response.data);
         response.data = JSON.parse(decrypted);
+      }
+
+      if (response.data?.data?.status === 401 || response.data?.status === 401) {
+        console.warn("Token expired. Logging out...");
+        document.cookie = "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = "/sign-in";
+        return Promise.reject(new Error("Token Expired"));
       }
 
       return response;
@@ -124,21 +164,11 @@ api.interceptors.response.use(
   },
 
   async (error) => {
-    // Handle Unauthorized (401)
     if (error.response?.status === 401) {
       console.warn("Session expired. Logging out...");
-      console.log("Session expired. Logging out...");
-
-      // Remove auth cookie
-      document.cookie =
-        "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-   
-      // queryClient.clear();
-      // Redirect to login page
+      document.cookie = "auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       window.location.href = "/sign-in";
     }
-
     return Promise.reject(error);
   }
 );

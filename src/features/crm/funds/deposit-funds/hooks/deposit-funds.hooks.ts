@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import {
   addCashDeposit,
@@ -24,7 +24,7 @@ export const useGetBankDetails = () => {
 };
 
 // deposit funds api hook
-import { useMutation } from "@tanstack/react-query";
+
 import type {
   CashDepositPayload,
   CryptoNetwork,
@@ -35,7 +35,9 @@ import type {
   WalletData,
 } from "../types/deposit-funds.types";
 
+// Deposit - through Bank
 export const useDepositFundsAddWalletBalance = () => {
+  const queryClient = useQueryClient();
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -46,6 +48,7 @@ export const useDepositFundsAddWalletBalance = () => {
     onSuccess: (response) => {
       const responseData = response?.data;
       if (responseData?.status === 200) {
+        queryClient.invalidateQueries({ queryKey: ["userBalance", "userData"] });
         setMessage({
           type: "success",
           text: responseData?.result || "Deposit successful.",
@@ -69,46 +72,9 @@ export const useDepositFundsAddWalletBalance = () => {
   return { ...mutation, message };
 };
 
-// export const useDepositFundsAddWalletBalance = () => {
-//   const queryClient = useQueryClient(); // add karo
-//   const [message, setMessage] = useState<{
-//     type: "success" | "error";
-//     text: string;
-//   } | null>(null);
-
-//   const mutation = useMutation({
-//     mutationFn: (payload: DepositFundsPayload) => depositFundsAddWalletBalance(payload),
-//     onSuccess: (response) => {
-//       const responseData = response?.data;
-//       if (responseData?.status === 200) {
-//         setMessage({
-//           type: "success",
-//           text: responseData?.result || "Deposit successful.",
-//         });
-//         // invalidate karo dono queries
-//         queryClient.invalidateQueries({ queryKey: ["dashboard", "stats"] });
-//         queryClient.invalidateQueries({ queryKey: ["userBalance", "userData"] });
-//       } else {
-//         setMessage({
-//           type: "error",
-//           text: responseData?.result || "Something went wrong.",
-//         });
-//       }
-//     },
-//     onError: (error: unknown) => {
-//       const err = error as AxiosError<{ message?: string }>;
-//       setMessage({
-//         type: "error",
-//         text: err.response?.data?.message || err.message || "Deposit failed.",
-//       });
-//     },
-//   });
-
-//   return { ...mutation, message };
-// };
-
 // Cash Deposit API hook
 export function useCashDeposit() {
+  const queryClient = useQueryClient();
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -116,11 +82,10 @@ export function useCashDeposit() {
 
   const mutation = useMutation({
     mutationFn: (payload: CashDepositPayload) => addCashDeposit(payload),
-
     onSuccess: (data) => {
       const res = data?.data;
-
       if (res?.status === 200) {
+        queryClient.invalidateQueries({ queryKey: ["userBalance", "userData"] });
         setMessage({
           type: "success",
           text: res?.result || "Cash deposit successful",
@@ -132,7 +97,6 @@ export function useCashDeposit() {
         });
       }
     },
-
     onError: (error: unknown) => {
       const err = error as AxiosError<{ message?: string }>;
       setMessage({
@@ -143,11 +107,7 @@ export function useCashDeposit() {
     },
   });
 
-  return {
-    ...mutation,
-    message,
-    setMessage,
-  };
+  return { ...mutation, message, setMessage };
 }
 
 export function useCryptoDeposit(network: CryptoNetwork): UseCryptoDepositReturn {

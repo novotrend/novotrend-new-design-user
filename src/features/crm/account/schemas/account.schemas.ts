@@ -22,12 +22,12 @@ export type OpenAccountFormData = z.infer<typeof openAccountSchema>;
 
 export const changePasswordSchema = z
   .object({
-    passwordtype: z.enum(["main", "investor", "both"]),
+    passwordtype: z.enum(["main", "investor"]),
     mainpassword: z.string().optional(),
     investorpassword: z.string().optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.passwordtype === "main" || data.passwordtype === "both") {
+    if (data.passwordtype === "main") {
       if (!data.mainpassword || data.mainpassword.trim() === "") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -36,7 +36,7 @@ export const changePasswordSchema = z
         });
       }
     }
-    if (data.passwordtype === "investor" || data.passwordtype === "both") {
+    if (data.passwordtype === "investor") {
       if (!data.investorpassword || data.investorpassword.trim() === "") {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,

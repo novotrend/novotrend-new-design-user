@@ -27,9 +27,6 @@ export default function AffiliateProgress() {
   const progressNew = data?.affiliate_progress_new?.data ?? [];
   const totalCommSum = parseFloat(String(data?.affiliate_progress_new?.total_comm_sum ?? "0"));
 
-  // console.log("affiliate_progress_new:", data?.affiliate_progress_new);
-  // console.log("type:", typeof data?.affiliate_progress_new);
-
   // Series — percentage of each level from total_comm_sum
   const series = progressNew.map((p) =>
     totalCommSum > 0

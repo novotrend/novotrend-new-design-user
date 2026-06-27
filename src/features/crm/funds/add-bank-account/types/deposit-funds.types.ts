@@ -4,7 +4,7 @@ export interface AddBankPayload {
   accname: string;
   accno: string;
   ifsc: string;
-  iban_number: string;
+  iban_number?: string;
   status: string | number;
   bankaddress: string;
   kyc_bank_image?: File | null;

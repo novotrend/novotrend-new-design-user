@@ -267,7 +267,7 @@ export default function NewAccount() {
                   className="text-sm font-medium text-slate-700 dark:text-slate-300"
                 >
                   {label}
-                  <span className="ml-1 text-red-500">*</span>
+                  {name !== "iban_number" && <span className="ml-1 text-red-500">*</span>}
                 </label>
                 <input
                   id={name}

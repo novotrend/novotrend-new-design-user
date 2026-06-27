@@ -177,8 +177,6 @@ const AppSidebar: React.FC<AppSidebarProps> = ({
     index: number;
   } | null>(null);
 
-  const [subMenuHeight, setSubMenuHeight] = useState<Record<number, number>>({});
-
   const subMenuRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
   const handleSubmenuToggle = (index: number) => {
@@ -186,16 +184,12 @@ const AppSidebar: React.FC<AppSidebarProps> = ({
   };
 
   useEffect(() => {
-    if (openSubmenu !== null) {
-      const el = subMenuRefs.current[openSubmenu.index];
-
+    const updated: Record<number, number> = {};
+    Object.entries(subMenuRefs.current).forEach(([key, el]) => {
       if (el) {
-        setSubMenuHeight((prev) => ({
-          ...prev,
-          [openSubmenu.index]: el.scrollHeight,
-        }));
+        updated[Number(key)] = el.scrollHeight;
       }
-    }
+    });
   }, [openSubmenu]);
 
   useEffect(() => {
@@ -284,16 +278,13 @@ const AppSidebar: React.FC<AppSidebarProps> = ({
               <div
                 ref={(el) => {
                   subMenuRefs.current[index] = el;
-                  if (el && el.scrollHeight !== subMenuHeight[index]) {
-                    setSubMenuHeight((prev) => ({
-                      ...prev,
-                      [index]: el.scrollHeight,
-                    }));
-                  }
                 }}
                 className="overflow-hidden transition-all duration-300"
                 style={{
-                  height: openSubmenu?.index === index ? `${subMenuHeight[index] || 0}px` : "0px",
+                  height:
+                    openSubmenu?.index === index
+                      ? `${subMenuRefs.current[index]?.scrollHeight ?? 0}px`
+                      : "0px",
                 }}
               >
                 <ul className="mt-2 ml-9 space-y-1">
